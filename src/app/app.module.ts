@@ -4,9 +4,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { MovieDetailComponent } from './movie-detail/movie-detail.component';
+import { FavouritesComponent } from './favourites/favourites.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent, MovieDetailComponent, FavouritesComponent, HeaderComponent],
   imports: [BrowserModule, AppRoutingModule, NgbModule, NgxPaginationModule],
   providers: [],
   bootstrap: [AppComponent]
