@@ -46,20 +46,36 @@ export class MovieDetailComponent implements OnInit {
     this.loadMovieDetails();
   }
   loadMovieDetails() {
-    this.moviesService
-      .fetchMovieByID(this.movieID)
-      .then(res => {
-        if (res) {
-          this.isLoading = false;
+    if (this.movieID.startsWith('tt')) {
+      console.log(this.movieID);
+      this.moviesService
+        .fetchMovieByID(this.movieID)
+        .then(res => {
+          if (res) {
+            this.isLoading = false;
+            this.error = false;
+            this.movie = res;
+            // console.log(res);
+          }
+        })
+        .catch(err => {
           this.error = false;
-          this.movie = res;
-          console.log(this.movie);
-        }
-      })
-      .catch(err => {
-        this.error = false;
-        console.log('err: ', err);
-      });
+          console.log('err: ', err);
+        });
+    } else {
+      console.log('title: ', this.movieID);
+      this.moviesService
+        .fetchMovieByTitle(this.movieID)
+        .then(res => {
+          if (res) {
+            this.movie = res;
+            // console.log(res);
+          }
+        })
+        .catch(err => {
+          console.log('err: ', err);
+        });
+    }
   }
 
   getMovieID() {

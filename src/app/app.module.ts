@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { MovieComponent } from './movie/movie.component';
 import { MovieQuotesComponent } from './movie-quotes/movie-quotes.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     NgbModule,
     NgxPaginationModule,
     HttpClientModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
