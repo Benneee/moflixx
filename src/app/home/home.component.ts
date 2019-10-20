@@ -42,7 +42,17 @@ export class HomeComponent implements OnInit {
   // moviesUrl = `http://www.omdbapi.com/?apikey=2be45151`;
 
   ngOnInit() {
-    this.randomMovies = ['batman', 'superman', 'avengers'];
+    this.randomMovies = [
+      'batman',
+      'superman',
+      'avengers',
+      'harry potter',
+      'mission impossible',
+      'how i met your mother',
+      'friends',
+      'suits',
+      'big bang theory'
+    ];
     this.randomNumber = Math.floor(
       Math.random() * this.randomMovies.length - 1 + 1
     );
