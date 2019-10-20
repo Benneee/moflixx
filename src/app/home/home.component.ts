@@ -92,6 +92,17 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  favourite(movie: Movie) {
+    // Todo: Use && instead of || for storage
+    console.log('movie: ', movie);
+    const title = movie.title;
+    const storage = localStorage || sessionStorage;
+    // if (storage.key) {
+
+    // }
+    // storage.setItem(title, JSON.stringify(movie));
+  }
+
   getNextPageData() {
     // console.log(this.totalPageNums);
     this.totalPageNums = Number(this.totalPageNums);
