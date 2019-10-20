@@ -48,7 +48,6 @@ export class HomeComponent implements OnInit {
       'avengers',
       'harry potter',
       'mission impossible',
-      'how i met your mother',
       'friends',
       'suits'
     ];
