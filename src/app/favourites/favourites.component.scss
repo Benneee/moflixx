@@ -1,0 +1,11 @@
+.fa-trash {
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}

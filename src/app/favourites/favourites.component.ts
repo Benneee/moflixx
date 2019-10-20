@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Movie } from '../movie/movie.model';
@@ -8,15 +9,46 @@ import { Movie } from '../movie/movie.model';
   styleUrls: ['./favourites.component.scss']
 })
 export class FavouritesComponent implements OnInit {
-  favourites: any;
+  favourites: Movie[];
   altImg = '../assets/no-img.png';
   noContent = false;
   movies: Movie[];
-
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  favesNumber: any;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.getAllMoviesFromLS();
+  }
+
+  getMoviesFromLS() {
+    let faves;
+    faves =
+      localStorage.getItem('movies') === null
+        ? []
+        : JSON.parse(localStorage.getItem('movies'));
+    return faves;
+  }
+
+  deleteFromFavourites(movie: Movie) {
+    const title = movie.title;
+    const storage = localStorage;
+
+    this.favourites = this.getMoviesFromLS();
+    this.favourites.forEach((m, index) => {
+      m.imdbID === movie.imdbID ? this.favourites.splice(index, 1) : null;
+    });
+    storage.setItem('movies', JSON.stringify(this.favourites));
+    this.toastr.success(
+      `${title} has been successfully deleted from your 'Favourites'`,
+      'Favourites'
+    );
+    this.router.navigate(['/'], {
+      relativeTo: this.route
+    });
   }
 
   private getAllMoviesFromLS() {
@@ -26,9 +58,9 @@ export class FavouritesComponent implements OnInit {
       } else {
         this.noContent = false;
         this.favourites = JSON.parse(localStorage.getItem('movies'));
-        // this.favourites = Array.from(new Set(this.favourites));
-        if (this.favourites) {
-          this.movies = this.favourites.map(item => {
+        const faves: any[] = Array.from(new Set(this.favourites));
+        if (faves) {
+          this.movies = faves.map(item => {
             return {
               title: item.title,
               imdbID: item.imdbID,

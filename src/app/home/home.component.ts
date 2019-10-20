@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   previousPage = false;
   nextPage;
   totalPageNums;
-  favourites: Movie[] = [];
+  favourites = [];
 
   moviesUrl = `http://www.omdbapi.com/?apikey=f3b1fcc0`;
 
@@ -95,25 +95,39 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  getMoviesFromLS() {
+    let faves;
+    faves =
+      localStorage.getItem('movies') === null
+        ? []
+        : JSON.parse(localStorage.getItem('movies'));
+    return faves;
+  }
+
   favourite(movie: Movie) {
     const title = movie.title;
     const storage = localStorage;
-    this.favourites.push(movie);
 
-    if (movie) {
-      storage.setItem('movies', JSON.stringify(this.favourites));
-      this.toastr.success(
-        `${title} is now a favourite. Find it in 'Favourites' page`,
-        'Favourites'
-      );
-    }
+    this.favourites = this.getMoviesFromLS();
+    this.favourites.push(movie);
+    storage.setItem('movies', JSON.stringify(this.favourites));
+    this.toastr.success(
+      `${title} is now a favourite. Find it in 'Favourites' page`,
+      'Favourites'
+    );
   }
 
   getNextPageData() {
     // console.log(this.totalPageNums);
-    this.totalPageNums = Number(this.totalPageNums);
-    const pageNumber = this.totalPageNums - (this.totalPageNums - 1) + 1;
-    this.loadData(this.moviesUrl, pageNumber);
+    this.totalPageNums = Math.ceil(Number(this.totalPageNums) / 10);
+    let pageNumber = this.totalPageNums - (this.totalPageNums - 1) + 1;
+    this.increasePageNumber(pageNumber);
+    console.log(pageNumber);
+    this.loadData(this.moviesUrl, this.increasePageNumber(pageNumber));
+  }
+
+  increasePageNumber(num: number) {
+    return num++;
   }
 
   loadDetails(id: string) {
