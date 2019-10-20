@@ -47,7 +47,7 @@ export class MovieDetailComponent implements OnInit {
   }
   loadMovieDetails() {
     if (this.movieID.startsWith('tt')) {
-      console.log(this.movieID);
+      // console.log(this.movieID);
       this.moviesService
         .fetchMovieByID(this.movieID)
         .then(res => {
@@ -60,10 +60,10 @@ export class MovieDetailComponent implements OnInit {
         })
         .catch(err => {
           this.error = false;
-          console.log('err: ', err);
+          // console.log('err: ', err);
         });
     } else {
-      console.log('title: ', this.movieID);
+      // console.log('title: ', this.movieID);
       this.moviesService
         .fetchMovieByTitle(this.movieID)
         .then(res => {
@@ -73,7 +73,7 @@ export class MovieDetailComponent implements OnInit {
           }
         })
         .catch(err => {
-          console.log('err: ', err);
+          // console.log('err: ', err);
         });
     }
   }

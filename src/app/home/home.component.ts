@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
         if (err) {
           this.isLoading = false;
           this.error = true;
-          console.log('err: ', err);
+          // console.log('err: ', err);
           this.toastr.error('Error while loading movies', 'Moflixx');
         }
         if (!navigator.onLine) {
@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit {
     this.totalPageNums = Math.ceil(Number(this.totalPageNums) / 10);
     let pageNumber = this.totalPageNums - (this.totalPageNums - 1) + 1;
     this.increasePageNumber(pageNumber);
-    console.log(pageNumber);
+    // console.log(pageNumber);
     this.loadData(this.moviesUrl, this.increasePageNumber(pageNumber));
   }
 
