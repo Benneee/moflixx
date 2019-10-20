@@ -121,10 +121,7 @@ export class HomeComponent implements OnInit {
     this.favourites = this.getMoviesFromLS();
     this.favourites.push(movie);
     storage.setItem('movies', JSON.stringify(this.favourites));
-    this.toastr.success(
-      `${title} is now a favourite. Find it in 'Favourites' page`,
-      'Favourites'
-    );
+    this.toastr.success(`${title} added to Favourites`, 'Favourites');
   }
 
   getNextPageData() {
