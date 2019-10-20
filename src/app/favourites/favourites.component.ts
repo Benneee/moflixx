@@ -42,13 +42,8 @@ export class FavouritesComponent implements OnInit {
       m.imdbID === movie.imdbID ? this.favourites.splice(index, 1) : null;
     });
     storage.setItem('movies', JSON.stringify(this.favourites));
-    this.toastr.success(
-      `${title} has been successfully deleted from your 'Favourites'`,
-      'Favourites'
-    );
-    this.router.navigate(['/'], {
-      relativeTo: this.route
-    });
+    this.toastr.success(`${title} deleted from 'Favourites'`, 'Favourites');
+    this.getAllMoviesFromLS();
   }
 
   private getAllMoviesFromLS() {
