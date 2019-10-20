@@ -3,7 +3,7 @@ import { MoviesService } from './../providers/movies.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -21,7 +21,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private moviesService: MoviesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {}
   isLoading = false;
   error = false;
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit {
   previousPage = false;
   nextPage;
   totalPageNums;
+  favourites: Movie[] = [];
 
   moviesUrl = `http://www.omdbapi.com/?apikey=f3b1fcc0`;
 
@@ -77,6 +79,7 @@ export class HomeComponent implements OnInit {
           this.isLoading = false;
           this.error = true;
           console.log('err: ', err);
+          this.toastr.error('Error while loading movies', 'Moflixx');
         }
         if (!navigator.onLine) {
           this.error = true;
@@ -93,14 +96,17 @@ export class HomeComponent implements OnInit {
   }
 
   favourite(movie: Movie) {
-    // Todo: Use && instead of || for storage
-    console.log('movie: ', movie);
     const title = movie.title;
-    const storage = localStorage || sessionStorage;
-    // if (storage.key) {
+    const storage = localStorage;
+    this.favourites.push(movie);
 
-    // }
-    // storage.setItem(title, JSON.stringify(movie));
+    if (movie) {
+      storage.setItem('movies', JSON.stringify(this.favourites));
+      this.toastr.success(
+        `${title} is now a favourite. Find it in 'Favourites' page`,
+        'Favourites'
+      );
+    }
   }
 
   getNextPageData() {

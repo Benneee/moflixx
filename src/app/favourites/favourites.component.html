@@ -1,1 +1,43 @@
-<p>favourites works!</p>
+<div class="container">
+  <div>
+    <div class="row" *ngIf="!noContent">
+      <div
+        class="col-md-3 col-sm-12 col-xs-12"
+        *ngFor="let movie of movies"
+      >
+        <div>
+          <div class="text-center text-nowrap">
+            <small> {{ movie?.title }}</small>
+          </div>
+          <div class="card mb-2 mx-auto border-0 p-0">
+            <img
+              defaultImage="{{ 'assets/loader.gif' }}"
+              [lazyLoad]="movie?.img || altImg"
+              class="card-img-top"
+              alt="{{ movie?.title }}"
+              (click)="loadDetails(movie?.imdbID)"
+            />
+            <div class="row mt-1">
+              <div class="col-12 text-center">
+                <span>({{ movie?.year }})</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="noContent === true">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h5>No Favourites</h5>
+          <img src="../assets/no-img.png" alt="No Favourites" />
+          <p class="lead">
+            You do not have any favourites at the moment, Mark your favourite
+            movies in the homepage by clicking this: <i class="fa fa-heart"></i>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
