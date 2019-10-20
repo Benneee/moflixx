@@ -5,3 +5,18 @@
     height: 300px;
   }
 }
+
+.fa-heart {
+  color: #28b485;
+  cursor: pointer;
+
+  &:hover {
+    color: #28b485;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    color: #55c57a;
+    transform: translateY(-1px);
+  }
+}
