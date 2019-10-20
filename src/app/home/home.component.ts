@@ -50,8 +50,7 @@ export class HomeComponent implements OnInit {
       'mission impossible',
       'how i met your mother',
       'friends',
-      'suits',
-      'big bang theory'
+      'suits'
     ];
     this.randomNumber = Math.floor(
       Math.random() * this.randomMovies.length - 1 + 1
@@ -119,9 +118,14 @@ export class HomeComponent implements OnInit {
     const storage = localStorage;
 
     this.favourites = this.getMoviesFromLS();
-    this.favourites.push(movie);
-    storage.setItem('movies', JSON.stringify(this.favourites));
-    this.toastr.success(`${title} added to Favourites`, 'Favourites');
+    const checkArray = this.favourites.some((m: any) => m.title === title);
+    if (checkArray === false) {
+      this.favourites.push(movie);
+      storage.setItem('movies', JSON.stringify(this.favourites));
+      this.toastr.success(`${title} added to Favourites`, 'Favourites');
+    } else {
+      this.toastr.info(`${title} already in 'Favourites'`, 'Favourites');
+    }
   }
 
   getNextPageData() {
