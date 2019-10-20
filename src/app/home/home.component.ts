@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   totalPageNums;
   favourites = [];
 
-  moviesUrl = `http://www.omdbapi.com/?apikey=f3b1fcc0`;
+  moviesUrl = `https://www.omdbapi.com/?apikey=f3b1fcc0`;
 
   // moviesUrl = `http://www.omdbapi.com/?apikey=2be45151`;
 

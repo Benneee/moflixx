@@ -7,7 +7,7 @@ import { Movie } from '../movie/movie.model';
 })
 export class MoviesService {
   // moviesUrl = `http://www.omdbapi.com/?apikey=2be45151`;
-  moviesUrl = `http://www.omdbapi.com/?apikey=f3b1fcc0`;
+  moviesUrl = `https://www.omdbapi.com/?apikey=f3b1fcc0`;
 
   constructor(private http: HttpClient) {}
 
