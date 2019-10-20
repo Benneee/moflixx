@@ -6,7 +6,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: '/movies', pathMatch: 'full' },
+  { path: 'movies', component: HomeComponent },
   { path: 'favourites', component: FavouritesComponent },
   { path: 'movie-quotes', component: MovieQuotesComponent },
   { path: 'movie/:movieId', component: MovieDetailComponent }

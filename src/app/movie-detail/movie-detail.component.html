@@ -1,1 +1,46 @@
-<p>movie-detail works!</p>
+<!--
+     * The Items I want
+ * Rated
+ * Released
+ * Genre
+ * Runtime
+ * Director
+ * Writer
+ * Actors
+ * Plot
+ * Language
+ * Country
+ * Awards
+ * Poster
+ * imdbRating
+ * Title
+ * Production
+-->
+
+<div class="container bg-light py-2">
+  <div class="row">
+    <div class="col-md-6">
+      <img
+        class="rounded mx-auto img-fluid h-100"
+        defaultImage="{{ 'assets/loader.gif' }}"
+        [lazyLoad]="movie?.Poster || altImg"
+        alt="{{ movie?.Title }}"
+      />
+    </div>
+    <div class="col-md-6">
+      <h4 class="font-weight-bolder">{{ movie?.Title }}</h4>
+      <p class="lead">Plot: {{ movie?.Plot }}</p>
+      <p class="lead">Actors: {{ movie?.Actors }}</p>
+      <p class="lead">Awards: {{ movie?.Awards }}</p>
+      <p class="lead">Country: {{ movie?.Country }}</p>
+      <p class="lead">Director: {{ movie?.Director }}</p>
+      <p class="lead">Genre: {{ movie?.Genre }}</p>
+      <p class="lead">IMDB Rating: {{ movie?.imdbRating }}</p>
+      <p class="lead">Language: {{ movie?.Language }}</p>
+      <p class="lead">Rated: {{ movie?.Rated }}</p>
+      <p class="lead">Released: {{ movie?.Released }}</p>
+      <p class="lead">Runtime: {{ movie?.Runtime }}</p>
+      <p class="lead">Written by: {{ movie?.Writer }}</p>
+    </div>
+  </div>
+</div>
