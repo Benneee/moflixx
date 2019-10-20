@@ -2,6 +2,7 @@ import { Movie } from './../movie/movie.model';
 import { MoviesService } from './../providers/movies.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -75,9 +76,20 @@ export class HomeComponent implements OnInit {
         if (err) {
           this.isLoading = false;
           this.error = true;
-          console.log(err);
+          console.log('err: ', err);
+        }
+        if (!navigator.onLine) {
+          this.error = true;
         }
       });
+  }
+
+  search(movieSearch: NgForm) {
+    const { movieTitle } = movieSearch.value;
+    const convTitle = movieTitle.replace(' ', '+');
+    this.router.navigate([`/movie/${convTitle}`], {
+      relativeTo: this.route
+    });
   }
 
   getNextPageData() {

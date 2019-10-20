@@ -1,15 +1,21 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <form class="form-inline">
+      <form
+        class="form-inline"
+        #movieSearch="ngForm"
+        (ngSubmit)="search(movieSearch)"
+      >
         <div class="form-group mx-sm-3 mb-2">
           <input
             type="text"
             class="form-control"
             placeholder="Enter a movie title"
+            ngModel
+            name="movieTitle"
           />
         </div>
-        <button type="submit" class="btn btn-success ml-0">
+        <button class="btn btn-success" type="submit">
           Search
           <i class="fa fa-search text-light"></i>
         </button>
@@ -17,37 +23,40 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="!error">
-    <div
-      class="col-lg-3 col-sm-6"
-      *ngFor="
-        let movie of movies | paginate: { itemsPerPage: 10, currentPage: p }
-      "
-    >
-      <div>
-        <div class="text-center text-nowrap">
-          <small> {{ movie?.title }}</small>
-        </div>
-        <div class="card mb-2 mx-auto mx-md-0 p-0 border-0">
-          <img
-            defaultImage="{{ 'assets/loader.gif' }}"
-            [lazyLoad]="movie?.img || altImg"
-            class="card-img-top"
-            alt="{{ movie?.title }}"
-            (click)="loadDetails(movie?.imdbID)"
-          />
-          <div class="row mt-1">
-            <div class="col-6">
-              <span>({{ movie?.year }})</span>
-            </div>
-            <div class="col-6">
-              <i class="fa fa-heart float-right"></i>
+  <div>
+    <div class="row" *ngIf="!error">
+      <div
+        class="col-md-3 col-sm-12 col-xs-12"
+        *ngFor="
+          let movie of movies | paginate: { itemsPerPage: 10, currentPage: p }
+        "
+      >
+        <div>
+          <div class="text-center text-nowrap">
+            <small> {{ movie?.title }}</small>
+          </div>
+          <div class="card mb-2 mx-auto border-0 p-0">
+            <img
+              defaultImage="{{ 'assets/loader.gif' }}"
+              [lazyLoad]="movie?.img || altImg"
+              class="card-img-top"
+              alt="{{ movie?.title }}"
+              (click)="loadDetails(movie?.imdbID)"
+            />
+            <div class="row mt-1">
+              <div class="col-6">
+                <span>({{ movie?.year }})</span>
+              </div>
+              <div class="col-6 text-right">
+                <i class="fa fa-heart"></i>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div *ngIf="error">
+
+    <div *ngIf="error === true && !isLoading">
       <div class="row">
         <div class="col-12 text-center">
           <h5>Error Loading Content</h5>

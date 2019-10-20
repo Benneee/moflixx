@@ -31,4 +31,12 @@ export class MoviesService {
       .then(res => res)
       .catch(err => err);
   }
+
+  fetchMovieByTitle(title: string) {
+    return this.http
+      .get(`${this.moviesUrl}&t=${title}`)
+      .toPromise()
+      .then(res => res)
+      .catch(err => err);
+  }
 }
