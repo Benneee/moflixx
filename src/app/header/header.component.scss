@@ -1,0 +1,18 @@
+.dropdown-toggle,
+.dropdown-item {
+  cursor: pointer;
+}
+
+li.active,
+.nav-item.active {
+  color: #28b485;
+}
+
+li a.nav-link:hover {
+  color: #55c57a;
+
+  &:active {
+    color: #55c57a;
+    transform: translateY(-2px);
+  }
+}

@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <form
+        class="form-inline"
+        #movieSearch="ngForm"
+        (ngSubmit)="search(movieSearch)"
+      >
+        <div class="form-group mx-sm-3 mb-2">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter a movie title"
+            ngModel
+            name="movieTitle"
+          />
+        </div>
+        <button class="btn btn-success" type="submit">
+          Search
+          <i class="fa fa-search text-light"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div>
+    <div class="row" *ngIf="!error">
+      <div
+        class="col-md-3 col-sm-12 col-xs-12"
+        *ngFor="
+          let movie of movies | paginate: { itemsPerPage: 10, currentPage: p }
+        "
+      >
+        <div>
+          <div class="text-center text-nowrap">
+            <small> {{ movie?.title }}</small>
+          </div>
+          <div class="card mb-2 mx-auto border-0 p-0">
+            <img
+              defaultImage="{{ 'assets/loader.gif' }}"
+              [lazyLoad]="movie?.img || altImg"
+              class="card-img-top"
+              alt="{{ movie?.title }}"
+              (click)="loadDetails(movie?.imdbID)"
+            />
+            <div class="row mt-1">
+              <div class="col-6">
+                <span>({{ movie?.year }})</span>
+              </div>
+              <div class="col-6 text-right">
+                <i class="fa fa-heart" (click)=favourite(movie)></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="error === true && !isLoading">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h5>Error Loading Content</h5>
+          <p class="lead">Please check your internet Connection</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!error" class="text-center">
+    <pagination-controls
+      class="my-pagination"
+      (pageChange)="p = $event"
+      previousLabel="Click See previous..."
+      nextLabel="Click See more..."
+    ></pagination-controls>
+  </div>
+  <div *ngIf="!error" class="text-center">
+    <button (click)="getNextPageData()">See more...</button>
+  </div>
+</div>
