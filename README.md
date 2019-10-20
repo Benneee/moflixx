@@ -1,5 +1,8 @@
 # Moflixx
 
+URL: https://moflixx.benneee.now.sh/movies
+URL 2: https://moflixx.netlify.com
+
 Moflixx is a movies directory that will fetch its movies data from OMDB API or any other beautiful Movies API. The project was generated with the Angular CLI and the following information are instructive enough to guide you through the project.
 
 Reach out if you do have any questions. Thank you.
