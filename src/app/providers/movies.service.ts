@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class MoviesService {
-  moviesUrl = `http://www.omdbapi.com/?apikey=2be45151`;
+  // moviesUrl = `http://www.omdbapi.com/?apikey=2be45151`;
+  moviesUrl = `http://www.omdbapi.com/?apikey=f3b1fcc0`;
 
   constructor(private http: HttpClient) {}
 
@@ -18,6 +19,14 @@ export class MoviesService {
     }
     return this.http
       .get(`${url}&page=${pageNum}&s=${title}`)
+      .toPromise()
+      .then(res => res)
+      .catch(err => err);
+  }
+
+  fetchMovieByID(id: string) {
+    return this.http
+      .get(`${this.moviesUrl}&i=${id}`)
       .toPromise()
       .then(res => res)
       .catch(err => err);
