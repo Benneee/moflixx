@@ -2,6 +2,10 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 @import '~font-awesome/css/font-awesome.css';
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import '~ngx-toastr/toastr-bs4-alert';
 
 * {
   font-family: 'Poppins', sans-serif;

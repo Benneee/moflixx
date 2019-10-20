@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Movie } from '../movie/movie.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,14 @@ export class MoviesService {
       .toPromise()
       .then(res => res)
       .catch(err => err);
+  }
+
+  getLengthOfMoviesInFavourites() {
+    if (!localStorage.getItem('movies')) {
+      return 0;
+    } else {
+      const favourites: Movie[] = JSON.parse(localStorage.getItem('movies'));
+      return favourites.length;
+    }
   }
 }

@@ -13,6 +13,8 @@ import { MovieComponent } from './movie/movie.component';
 import { MovieQuotesComponent } from './movie-quotes/movie-quotes.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { FormsModule } from '@angular/forms';
     NgxPaginationModule,
     HttpClientModule,
     LazyLoadImageModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
