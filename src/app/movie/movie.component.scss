@@ -1,0 +1,30 @@
+.card {
+  width: 15rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+  img {
+    height: 300px;
+  }
+}
+
+.whole-card {
+  transition: 0.3s;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.fa-heart {
+  color: #28b485;
+  cursor: pointer;
+
+  &:hover {
+    color: #28b485;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    color: #55c57a;
+    transform: translateY(-1px);
+  }
+}
