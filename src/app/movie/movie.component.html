@@ -1,1 +1,43 @@
-<p>movie works!</p>
+<div>
+  <div class="row" *ngIf="!error">
+    <div class="col-md-3 col-sm-12 col-xs-12" *ngFor="let movie of movies">
+      <div class="whole-card">
+        <div class="text-center text-nowrap">
+          <small> {{ movie?.title }}</small>
+        </div>
+        <div class="card mb-2 mx-auto border-0 p-0">
+          <img
+            defaultImage="{{ 'assets/loader.gif' }}"
+            [lazyLoad]="movie?.img || altImg"
+            class="card-img-top"
+            alt="{{ movie?.title }}"
+            (click)="loadDetails(movie?.imdbID)"
+          />
+          <div class="row mt-1">
+            <div class="col-6">
+              <span>({{ movie?.year }})</span>
+            </div>
+            <div class="col-6 text-right" *ngIf="showFavoriteBtn">
+              <i class="fa fa-heart" (click)="favourite(movie)"></i>
+            </div>
+            <div class="col-6 text-right" *ngIf="showDeleteBtn">
+                <i
+                  class="fa fa-trash text-danger"
+                  (click)="deleteFromFavourites(movie)"
+                ></i>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="error === true && !isLoading">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h5>Error Loading Content</h5>
+        <p class="lead">Please check your internet Connection</p>
+      </div>
+    </div>
+  </div>
+</div>
