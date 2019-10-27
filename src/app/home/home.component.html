@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" #scollingElement>
     <div class="col-md-6 offset-md-3">
       <form
         class="form-inline"
@@ -24,10 +24,17 @@
   </div>
 
   <div>
-    <app-movie [movies]="movies" [error]="error" [showDeleteBtn]="showDeleteBtn" [showFavoriteBtn]="showFavoriteBtn"></app-movie>
+    <app-movie
+      [movies]="movies"
+      [error]="error"
+      [showDeleteBtn]="showDeleteBtn"
+      [showFavoriteBtn]="showFavoriteBtn"
+    ></app-movie>
   </div>
   <br />
   <div *ngIf="!error" class="text-center">
-    <button (click)="getNextPageData()">See more...</button>
+    <button (click)="getNextPageData()">
+      See more...
+    </button>
   </div>
 </div>
