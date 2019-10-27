@@ -1,5 +1,5 @@
 import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Movie } from '../movie/movie.model';
 
@@ -14,6 +14,8 @@ export class FavouritesComponent implements OnInit {
   noContent = false;
   movies: Movie[];
   favesNumber: any;
+  @Input() showFavoriteBtn = false;
+  @Input() showDeleteBtn = true;
   constructor(
     private route: ActivatedRoute,
     private router: Router,

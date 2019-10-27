@@ -1,6 +1,6 @@
 import { Movie } from './../movie/movie.model';
 import { MoviesService } from './../providers/movies.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -28,42 +28,31 @@ export class HomeComponent implements OnInit {
   error = false;
   movies: Movie[];
   altImg = '../assets/no-img.png';
-  randomMovies;
-  randomNumber;
-  randomMovie;
   p;
   previousPage = false;
   nextPage;
   totalPageNums;
-  favourites = [];
+  @Input() showFavoriteBtn = true;
+  @Input() showDeleteBtn = false;
+  // favourites = [];
 
   moviesUrl = `https://www.omdbapi.com/?apikey=f3b1fcc0`;
 
   // moviesUrl = `http://www.omdbapi.com/?apikey=2be45151`;
 
   ngOnInit() {
-    this.randomMovies = [
-      'batman',
-      'superman',
-      'avengers',
-      'harry potter',
-      'mission impossible',
-      'friends',
-      'suits'
-    ];
-    this.randomNumber = Math.floor(
-      Math.random() * this.randomMovies.length - 1 + 1
-    );
-    this.randomMovie = this.randomMovies[this.randomNumber];
     this.loadData();
   }
 
-  private loadData(url?: string, pageNumber?: number) {
+  private loadData(url?: string, movie?: any) {
     if (!url) {
       url = this.moviesUrl;
     }
+    if (!movie) {
+      movie = 'batman';
+    }
     this.moviesService
-      .fetchMovies(url, this.randomMovie, pageNumber)
+      .fetchMovies(url, movie)
       .then(res => {
         this.isLoading = true;
         this.error = false;
@@ -103,47 +92,21 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getMoviesFromLS() {
-    let faves;
-    faves =
-      localStorage.getItem('movies') === null
-        ? []
-        : JSON.parse(localStorage.getItem('movies'));
-    return faves;
-  }
-
-  favourite(movie: Movie) {
-    const title = movie.title;
-    const storage = localStorage;
-
-    this.favourites = this.getMoviesFromLS();
-    const checkArray = this.favourites.some((m: any) => m.title === title);
-    if (checkArray === false) {
-      this.favourites.push(movie);
-      storage.setItem('movies', JSON.stringify(this.favourites));
-      this.toastr.success(`${title} added to Favourites`, 'Favourites');
-    } else {
-      this.toastr.info(`${title} already in 'Favourites'`, 'Favourites');
-    }
-  }
-
   getNextPageData() {
-    // console.log(this.totalPageNums);
-    this.totalPageNums = Math.ceil(Number(this.totalPageNums) / 10);
-    let pageNumber = this.totalPageNums - (this.totalPageNums - 1) + 1;
-    this.increasePageNumber(pageNumber);
-    // console.log(pageNumber);
-    this.loadData(this.moviesUrl, this.increasePageNumber(pageNumber));
-  }
-
-  increasePageNumber(num: number) {
-    return num++;
-  }
-
-  loadDetails(id: string) {
-    // console.log('IMDB ID: ', id);
-    this.router.navigate([`/movie/${id}`], {
-      relativeTo: this.route
-    });
+    const randomMovies = [
+      'batman',
+      'superman',
+      'avengers',
+      'harry potter',
+      'mission impossible',
+      'friends',
+      'suits'
+    ];
+    const randomNumber = Math.floor(
+      Math.random() * randomMovies.length - 1 + 1
+    );
+    const randomMovie = randomMovies[randomNumber];
+    // console.log(randomMovie);
+    this.loadData(this.moviesUrl, randomMovie);
   }
 }
