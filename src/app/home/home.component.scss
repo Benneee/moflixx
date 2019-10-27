@@ -1,5 +1,6 @@
 body {
   padding: 1rem;
+  scroll-behavior: smooth;
 }
 
 .card {
@@ -29,4 +30,9 @@ body {
     color: #55c57a;
     transform: translateY(-1px);
   }
+}
+
+button a {
+  text-decoration: none;
+  color: black;
 }

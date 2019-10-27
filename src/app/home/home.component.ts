@@ -1,6 +1,6 @@
 import { Movie } from './../movie/movie.model';
 import { MoviesService } from './../providers/movies.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
   totalPageNums;
   @Input() showFavoriteBtn = true;
   @Input() showDeleteBtn = false;
+  @ViewChild('scollingElement', { static: true }) scrollingElement: ElementRef;
   // favourites = [];
 
   moviesUrl = `https://www.omdbapi.com/?apikey=f3b1fcc0`;
@@ -106,7 +107,10 @@ export class HomeComponent implements OnInit {
       Math.random() * randomMovies.length - 1 + 1
     );
     const randomMovie = randomMovies[randomNumber];
-    // console.log(randomMovie);
     this.loadData(this.moviesUrl, randomMovie);
+    this.scrollingElement.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
   }
 }
