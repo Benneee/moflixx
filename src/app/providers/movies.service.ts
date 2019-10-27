@@ -11,15 +11,12 @@ export class MoviesService {
 
   constructor(private http: HttpClient) {}
 
-  fetchMovies(url?: string, title?: string, pageNum?: number) {
-    if (!pageNum) {
-      pageNum = 1;
-    }
+  fetchMovies(url?: string, title?: string) {
     if (!title) {
       title = 'batman';
     }
     return this.http
-      .get(`${url}&page=${pageNum}&s=${title}`)
+      .get(`${url}&s=${title}`)
       .toPromise()
       .then(res => res)
       .catch(err => err);
