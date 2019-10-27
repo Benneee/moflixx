@@ -16,6 +16,7 @@ export class MovieComponent implements OnInit {
   @Input() showFavoriteBtn = false;
   @Input() showDeleteBtn = false;
   @Input() noContent: boolean;
+  isLoading = false;
 
   constructor(
     private router: Router,
