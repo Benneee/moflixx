@@ -15,17 +15,17 @@
           />
           <div class="row mt-1">
             <div class="col-6">
-              <span>({{ movie?.year }})</span>
+              <span class="ml-2">{{ movie?.year }}</span>
             </div>
             <div class="col-6 text-right" *ngIf="showFavoriteBtn">
-              <i class="fa fa-heart" (click)="favourite(movie)"></i>
+              <i class="fa fa-heart mr-2" (click)="favourite(movie)"></i>
             </div>
             <div class="col-6 text-right" *ngIf="showDeleteBtn">
-                <i
-                  class="fa fa-trash text-danger"
-                  (click)="deleteFromFavourites(movie)"
-                ></i>
-              </div>
+              <i
+                class="fa fa-trash text-danger mr-2"
+                (click)="deleteFromFavourites(movie)"
+              ></i>
+            </div>
           </div>
         </div>
       </div>
