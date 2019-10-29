@@ -1,6 +1,11 @@
 .card {
   width: 15rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.835);
+  transition: 0.3s;
+
+  &:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  }
 
   img {
     height: 300px;
@@ -9,22 +14,22 @@
 
 .whole-card {
   transition: 0.3s;
-  &:hover {
-    transform: scale(1.05);
-  }
 }
 
 .fa-heart {
-  color: #28b485;
   cursor: pointer;
+  font-size: 1.5em;
 
   &:hover {
     color: #28b485;
-    transform: scale(1.1);
   }
 
   &:active {
     color: #55c57a;
     transform: translateY(-1px);
   }
+}
+
+.fa-trash {
+  font-size: 1.5em;
 }

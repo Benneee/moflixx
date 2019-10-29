@@ -17,6 +17,7 @@ export class MovieComponent implements OnInit {
   @Input() showDeleteBtn = false;
   @Input() noContent: boolean;
   isLoading = false;
+  checkArray: boolean;
 
   constructor(
     private router: Router,
@@ -46,8 +47,8 @@ export class MovieComponent implements OnInit {
     const storage = localStorage;
 
     this.favourites = this.getMoviesFromLS();
-    const checkArray = this.favourites.some((m: any) => m.title === title);
-    if (checkArray === false) {
+    this.checkArray = this.favourites.some((m: any) => m.title === title);
+    if (this.checkArray === false) {
       this.favourites.push(movie);
       storage.setItem('movies', JSON.stringify(this.favourites));
       this.toastr.success(`${title} added to Favourites`, 'Favourites');
