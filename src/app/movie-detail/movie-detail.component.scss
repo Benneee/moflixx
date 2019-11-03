@@ -2,3 +2,21 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
 }
+
+.fa-heart {
+  cursor: pointer;
+  font-size: 1.5em;
+
+  &:hover {
+    color: #28b485;
+  }
+
+  &:active {
+    color: #55c57a;
+    transform: translateY(-1px);
+  }
+}
+
+h4 {
+  display: inline;
+}
