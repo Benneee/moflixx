@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row" #scollingElement>
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-4 offset-md-4">
       <form
         class="form-inline"
         #movieSearch="ngForm"
@@ -24,17 +24,10 @@
   </div>
 
   <div>
-    <app-movie
-      [movies]="movies"
-      [error]="error"
-      [showDeleteBtn]="showDeleteBtn"
-      [showFavoriteBtn]="showFavoriteBtn"
-    ></app-movie>
+    <app-movie [movies]="movies" [error]="error"></app-movie>
   </div>
   <br />
   <div *ngIf="!error" class="text-center py-2">
-    <button (click)="getNextPageData()">
-      See more...
-    </button>
+    <button (click)="getNextPageData()">See more...</button>
   </div>
 </div>

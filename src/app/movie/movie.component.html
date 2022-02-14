@@ -1,6 +1,6 @@
 <div>
   <div class="row" *ngIf="!error">
-    <div class="col-md-3 col-sm-12 col-xs-12" *ngFor="let movie of movies">
+    <div class="col-md col-12" *ngFor="let movie of movies">
       <div class="whole-card">
         <div class="text-center text-nowrap">
           <small> {{ movie?.title }}</small>
@@ -17,12 +17,12 @@
             <div class="col-6">
               <span class="ml-2">{{ movie?.year }}</span>
             </div>
-            <div class="col-6 text-right" *ngIf="showFavoriteBtn">
+            <div class="col-6 text-right" *ngIf="!isInFavorites(movie.imdbID)">
               <i class="fa fa-heart mr-2" (click)="favourite(movie)"></i>
             </div>
-            <div class="col-6 text-right" *ngIf="showDeleteBtn">
+            <div class="col-6 text-right" *ngIf="isInFavorites(movie.imdbID)">
               <i
-                class="fa fa-trash text-danger mr-2"
+                class="fa fa-heart text-success mr-2"
                 (click)="deleteFromFavourites(movie)"
               ></i>
             </div>

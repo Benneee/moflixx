@@ -1,12 +1,13 @@
-import { MoviesService } from './../providers/movies.service';
-import { Movie } from './../movie/movie.model';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { ToastrService } from "ngx-toastr";
+import { MoviesService } from "./../providers/movies.service";
+import { Movie } from "./../movie/movie.model";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router, Params } from "@angular/router";
 
 @Component({
-  selector: 'app-movie-detail',
-  templateUrl: './movie-detail.component.html',
-  styleUrls: ['./movie-detail.component.scss']
+  selector: "app-movie-detail",
+  templateUrl: "./movie-detail.component.html",
+  styleUrls: ["./movie-detail.component.scss"],
 })
 
 /**
@@ -33,7 +34,9 @@ export class MovieDetailComponent implements OnInit {
   movieID: string;
   isLoading = false;
   error = false;
-  altImg = '../assets/no-img.png';
+  altImg = "../assets/no-img.png";
+  favourites: any;
+  checkArray: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,45 +49,64 @@ export class MovieDetailComponent implements OnInit {
     this.loadMovieDetails();
   }
   loadMovieDetails() {
-    if (this.movieID.startsWith('tt')) {
-      // console.log(this.movieID);
+    if (this.movieID.startsWith("tt")) {
       this.moviesService
         .fetchMovieByID(this.movieID)
-        .then(res => {
+        .then((res) => {
           if (res) {
             this.isLoading = false;
             this.error = false;
             this.movie = res;
-            // console.log(res);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = false;
-          // console.log('err: ', err);
         });
     } else {
-      // console.log('title: ', this.movieID);
       this.moviesService
         .fetchMovieByTitle(this.movieID)
-        .then(res => {
+        .then((res) => {
           if (res) {
             this.movie = res;
-            // console.log(res);
           }
         })
-        .catch(err => {
-          // console.log('err: ', err);
+        .catch((err) => {
+          console.log("err: ", err);
         });
     }
   }
 
   getMovieID() {
     this.route.params.subscribe((params: Params) => {
-      if (!params['movieId']) {
-        this.router.navigate(['/']);
+      if (!params["movieId"]) {
+        this.router.navigate(["/"]);
         return;
       }
-      this.movieID = params['movieId'];
+      this.movieID = params["movieId"];
     });
   }
+
+  favourite(movie: Movie) {
+    let title = movie["Title"];
+    movie.title = title;
+    this.moviesService.favourite(movie);
+  }
+
+  deleteFromFavourites(movie: Movie) {
+    let title = movie["Title"];
+    movie.title = title;
+    this.moviesService.deleteFromFavourites(movie);
+  }
+
+  isInFavorites(imdbId: string) {
+    return this.moviesService.isInFavorites(imdbId);
+  }
 }
+
+/**
+ * To Do
+ *
+ * Add more of the items being used in Movie Detail to be part of the Movie Model so that
+ * the movies "favourited" from Movie Detail can show like the other movies there....
+ * It's currently showing as undefined, we can't work with that.
+ */
