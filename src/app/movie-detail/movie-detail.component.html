@@ -31,7 +31,16 @@
       <div>
         <h4 class="font-weight-bolder">{{ movie?.Title }}</h4>
         <span class="float-right">
-          <i class="fa fa-heart" (click)="favourite(movie)"></i>
+          <i
+            class="fa fa-heart"
+            *ngIf="!isInFavorites(movie?.imdbID)"
+            (click)="favourite(movie)"
+          ></i>
+          <i
+            class="fa fa-heart text-success"
+            *ngIf="isInFavorites(movie?.imdbID)"
+            (click)="deleteFromFavourites(movie)"
+          ></i>
         </span>
       </div>
       <p class="lead">Plot: {{ movie?.Plot }}</p>

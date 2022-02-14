@@ -1,94 +1,46 @@
-import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit, Input } from '@angular/core';
-import { Movie } from './movie.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MoviesService } from "./../providers/movies.service";
+import { Component, OnInit, Input } from "@angular/core";
+import { Movie } from "./movie.model";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-  selector: 'app-movie',
-  templateUrl: './movie.component.html',
-  styleUrls: ['./movie.component.scss']
+  selector: "app-movie",
+  templateUrl: "./movie.component.html",
+  styleUrls: ["./movie.component.scss"],
 })
 export class MovieComponent implements OnInit {
   @Input() movies: Movie[];
   favourites = [];
-  altImg = '../assets/no-img.png';
+  altImg = "../assets/no-img.png";
   @Input() error;
-  @Input() showFavoriteBtn = false;
-  @Input() showDeleteBtn = false;
-  @Input() noContent: boolean;
   isLoading = false;
   checkArray: boolean;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private toastr: ToastrService
+    private moviesService: MoviesService
   ) {}
 
-  ngOnInit() {}
-  loadDetails(id: string) {
-    // console.log('IMDB ID: ', id);
-    this.router.navigate([`/movie/${id}`], {
-      relativeTo: this.route
-    });
+  ngOnInit() {
+    this.favourites = this.moviesService.getMoviesFromLS();
   }
 
-  getMoviesFromLS() {
-    let faves;
-    faves =
-      localStorage.getItem('movies') === null
-        ? []
-        : JSON.parse(localStorage.getItem('movies'));
-    return faves;
+  loadDetails(id: string) {
+    this.router.navigate([`/movie/${id}`], {
+      relativeTo: this.route,
+    });
   }
 
   favourite(movie: Movie) {
-    const title = movie.title;
-    const storage = localStorage;
-
-    this.favourites = this.getMoviesFromLS();
-    this.checkArray = this.favourites.some((m: any) => m.title === title);
-    if (this.checkArray === false) {
-      this.favourites.push(movie);
-      storage.setItem('movies', JSON.stringify(this.favourites));
-      this.toastr.success(`${title} added to Favourites`, 'Favourites');
-    } else {
-      this.toastr.info(`${title} already in 'Favourites'`, 'Favourites');
-    }
+    this.moviesService.favourite(movie);
   }
 
   deleteFromFavourites(movie: Movie) {
-    const title = movie.title;
-    const storage = localStorage;
-
-    this.favourites = this.getMoviesFromLS();
-    this.favourites.forEach((m, index) => {
-      m.imdbID === movie.imdbID ? this.favourites.splice(index, 1) : null;
-    });
-    storage.setItem('movies', JSON.stringify(this.favourites));
-    this.toastr.success(`${title} deleted from 'Favourites'`, 'Favourites');
-    this.getAllMoviesFromLS();
+    this.moviesService.deleteFromFavourites(movie);
   }
 
-  private getAllMoviesFromLS() {
-    if (localStorage.length > 0) {
-      if (!localStorage.getItem('movies')) {
-        this.noContent = true;
-      } else {
-        this.noContent = false;
-        this.favourites = JSON.parse(localStorage.getItem('movies'));
-        const faves: any[] = Array.from(new Set(this.favourites));
-        if (faves) {
-          this.movies = faves.map(item => {
-            return {
-              title: item.title,
-              imdbID: item.imdbID,
-              img: item.img ? item.img : this.altImg,
-              year: item.year
-            };
-          });
-        }
-      }
-    }
+  isInFavorites(imdbId: string) {
+    return this.moviesService.isInFavorites(imdbId);
   }
 }
