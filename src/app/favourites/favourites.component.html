@@ -1,14 +1,10 @@
 <div class="container">
   <div>
-    <div *ngIf="!noContent">
-      <app-movie
-        [movies]="movies"
-        [showDeleteBtn]="showDeleteBtn"
-        [showDeleteBtn]="showDeleteBtn"
-      ></app-movie>
+    <div *ngIf="favourites.length > 0">
+      <app-movie [movies]="favourites"></app-movie>
     </div>
 
-    <div *ngIf="noContent === true">
+    <div *ngIf="favourites.length === 0">
       <div class="row">
         <div class="col-12 text-center">
           <h5>No Favourites</h5>

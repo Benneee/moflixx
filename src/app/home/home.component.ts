@@ -1,22 +1,14 @@
-import { Movie } from './../movie/movie.model';
-import { MoviesService } from './../providers/movies.service';
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { Movie } from "./../movie/movie.model";
+import { MoviesService } from "./../providers/movies.service";
+import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { NgForm } from "@angular/forms";
+import { ToastrService } from "ngx-toastr";
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
 })
-
-/**
- * The items I want
- * title
- * year
- * image
- * imdbId (for search & details page)
- */
 export class HomeComponent implements OnInit {
   constructor(
     private moviesService: MoviesService,
@@ -27,15 +19,12 @@ export class HomeComponent implements OnInit {
   isLoading = false;
   error = false;
   movies: Movie[];
-  altImg = '../assets/no-img.png';
+  altImg = "../assets/no-img.png";
   p;
   previousPage = false;
   nextPage;
   totalPageNums;
-  @Input() showFavoriteBtn = true;
-  @Input() showDeleteBtn = false;
-  @ViewChild('scollingElement', { static: true }) scrollingElement: ElementRef;
-  // favourites = [];
+  @ViewChild("scollingElement", { static: true }) scrollingElement: ElementRef;
 
   moviesUrl = `https://www.omdbapi.com/?apikey=f3b1fcc0`;
 
@@ -50,34 +39,32 @@ export class HomeComponent implements OnInit {
       url = this.moviesUrl;
     }
     if (!movie) {
-      movie = 'batman';
+      movie = "batman";
     }
     this.moviesService
       .fetchMovies(url, movie)
-      .then(res => {
+      .then((res) => {
         this.isLoading = true;
         this.error = false;
         if (res) {
-          this.totalPageNums = res['totalResults'];
-          if (res['Response'] === 'True') {
-            this.movies = res['Search'].map(item => {
+          this.totalPageNums = res["totalResults"];
+          if (res["Response"] === "True") {
+            this.movies = res["Search"].map((item) => {
               return {
                 title: item.Title,
                 imdbID: item.imdbID,
                 img: item.Poster ? item.Poster : this.altImg,
-                year: item.Year
+                year: item.Year,
               };
             });
-            // console.log('movies: ', this.movies);
           }
         }
       })
-      .catch(err => {
+      .catch((err) => {
         if (err) {
           this.isLoading = false;
           this.error = true;
-          // console.log('err: ', err);
-          this.toastr.error('Error while loading movies', 'Moflixx');
+          this.toastr.error("Error while loading movies", "Moflixx");
         }
         if (!navigator.onLine) {
           this.error = true;
@@ -87,21 +74,21 @@ export class HomeComponent implements OnInit {
 
   search(movieSearch: NgForm) {
     const { movieTitle } = movieSearch.value;
-    const convTitle = movieTitle.replace(' ', '+');
+    const convTitle = movieTitle.replace(" ", "+");
     this.router.navigate([`/movie/${convTitle}`], {
-      relativeTo: this.route
+      relativeTo: this.route,
     });
   }
 
   getNextPageData() {
     const randomMovies = [
-      'batman',
-      'superman',
-      'avengers',
-      'harry potter',
-      'mission impossible',
-      'friends',
-      'suits'
+      "batman",
+      "superman",
+      "avengers",
+      "harry potter",
+      "mission impossible",
+      "friends",
+      "suits",
     ];
     const randomNumber = Math.floor(
       Math.random() * randomMovies.length - 1 + 1
@@ -109,8 +96,8 @@ export class HomeComponent implements OnInit {
     const randomMovie = randomMovies[randomNumber];
     this.loadData(this.moviesUrl, randomMovie);
     this.scrollingElement.nativeElement.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center'
+      behavior: "smooth",
+      block: "center",
     });
   }
 }
