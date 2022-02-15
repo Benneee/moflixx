@@ -1,10 +1,10 @@
-import { MoviesService } from './../providers/movies.service';
-import { Component, OnInit } from '@angular/core';
+import { MoviesService } from "./../providers/movies.service";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent implements OnInit {
   isCollapsed = true;
@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {}
 
   getLength() {
-    this.favesNumber = this.moviesService.getLengthOfMoviesInFavourites();
-    return this.favesNumber;
+    return this.moviesService.getMoviesFromLS().length;
   }
 }

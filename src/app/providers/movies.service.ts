@@ -39,15 +39,6 @@ export class MoviesService {
       .catch((err) => err);
   }
 
-  getLengthOfMoviesInFavourites() {
-    if (!localStorage.getItem("movies")) {
-      return 0;
-    } else {
-      const favourites: Movie[] = JSON.parse(localStorage.getItem("movies"));
-      return favourites.length;
-    }
-  }
-
   // Favorites Stuff
 
   getMoviesFromLS() {
