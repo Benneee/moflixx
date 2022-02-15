@@ -15,6 +15,8 @@ export class FavouritesComponent implements OnInit {
   movies: Movie[];
   favesNumber: any;
 
+  properlyModelledMovies: Movie[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -22,7 +24,33 @@ export class FavouritesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.favourites = this.moviesService.getMoviesFromLS();
+    this.loadFavorites();
+  }
+
+  loadFavorites() {
+    const unModelledFavorites: any[] = this.moviesService.getMoviesFromLS();
+    const wholeFavorites = unModelledFavorites.map((movie: any) => {
+      if (movie.title && movie.img) {
+        this.properlyModelledMovies.push(movie);
+      } else {
+        return {
+          title: movie.Title,
+          year: movie.Year,
+          img: movie.Poster ? movie.Poster : "../assets/no-img.png",
+          imdbID: movie.imdbID,
+        };
+      }
+    });
+
+    if (this.properlyModelledMovies.length > 0) {
+      const refined = wholeFavorites.filter((movie) => movie !== undefined);
+
+      const filtered = [...refined, ...this.properlyModelledMovies];
+
+      this.favourites = filtered.filter(
+        (movie: any) => movie.img !== undefined && movie !== undefined
+      );
+    }
   }
 
   loadDetails(id: string) {
